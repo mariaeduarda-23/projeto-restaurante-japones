@@ -2,9 +2,8 @@
 
 ## Sobre o projeto
 
-Este projeto foi desenvolvido para as disciplinas de Banco de Dados e Python. O objetivo é criar um sistema para auxiliar no gerenciamento de um restaurante japonês, organizando informações de clientes, cardápio, funcionários, pedidos, itens, categorias e mesas.
+O objetivo é criar um sistema para auxiliar no gerenciamento de um restaurante japonês, organizando informações de clientes, cardápio, funcionários, pedidos, itens, categorias e mesas.
 
-O projeto utiliza PostgreSQL para a estrutura e manipulação do banco de dados e Python com SQLite para o desenvolvimento da aplicação.
 
 ## Funcionalidades
 
