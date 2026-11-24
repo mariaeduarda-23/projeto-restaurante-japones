@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cardápio | Restaurante Japonês</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo-japones">
+
+        <div class="logo-japones">
+            <span class="simbolo">和</span>
+            <h1>Nosso Cardápio</h1>
+            <p>Sabores e tradições do Japão</p>
+        </div>
+
+        <!-- NAVBAR MATERIALIZE -->
+        <nav class="nav-japones">
+            <div class="nav-wrapper container">
+                <ul class="center">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/clientes">Clientes</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <main class="pagina-cardapio container">
+
+        <!-- TÍTULO -->
+        <section class="titulo-cardapio">
+
+            <span>日本料理</span>
+
+            <h2>Conheça nossos pratos</h2>
+
+            <p>Uma seleção especial da culinária japonesa.</p>
+
+            <a href="/cadastrar_produto" class="btn waves-effect waves-light botao-cadastrar">
+                + Cadastrar produto
+            </a>
+
+        </section>
+
+        {% if produtos %}
+
+            <!-- GRID MATERIALIZE -->
+            <div class="lista-produtos-materialize row">
+
+                {% for produto in produtos %}
+
+                    <div class="col s12 m6 l4">
+
+                        <!-- CARD DO PRODUTO -->
+                        <div class="card produto-card">
+
+                            <div class="card-content">
+
+                                <span class="produto-id">
+                                    PRODUTO Nº {{ produto[0] }}
+                                </span>
+
+                                <!-- IMAGENS DOS PRODUTOS -->
+
+                                {% if produto[1] == "Sushi de Salmão" %}
+
+                                    <img src="{{ url_for('static', filename='img/sushi_salmao.png') }}"
+                                         alt="Sushi de Salmão" class="imagem-produto">
+
+                                {% elif produto[1] == "Sushi de Atum" %}
+
+                                    <img src="{{ url_for('static', filename='img/sushi_atum.png') }}"
+                                         alt="Sushi de Atum" class="imagem-produto">
+
+                                {% elif produto[1] == "Temaki de Salmão" %}
+
+                                    <img src="{{ url_for('static', filename='img/temaki_salmao.png') }}"
+                                         alt="Temaki de Salmão" class="imagem-produto">
+
+                                {% elif produto[1] == "Temaki de Atum" %}
+
+                                    <img src="{{ url_for('static', filename='img/temaki_atum.png') }}"
+                                         alt="Temaki de Atum" class="imagem-produto">
+
+                                {% elif produto[1] == "Yakisoba" %}
+
+                                    <img src="{{ url_for('static', filename='img/yakisoba.png') }}"
+                                         alt="Yakisoba" class="imagem-produto">
+
+                                {% elif produto[1] == "Guioza" %}
+
+                                    <img src="{{ url_for('static', filename='img/guioza.png') }}"
+                                         alt="Guioza" class="imagem-produto">
+
+                                {% elif produto[1] == "Sushi Doce" %}
+
+                                    <img src="{{ url_for('static', filename='img/sushi_doce.png') }}"
+                                         alt="Sushi Doce" class="imagem-produto">
+
+                                {% elif produto[1] == "Refrigerante" %}
+
+                                    <img src="{{ url_for('static', filename='img/refrigerante.png') }}"
+                                         alt="Refrigerante" class="imagem-produto">
+
+                                {% elif produto[1] == "Água" %}
+
+                                    <img src="{{ url_for('static', filename='img/agua.png') }}"
+                                         alt="Água" class="imagem-produto">
+
+                                {% else %}
+
+                                    <div class="produto-decoracao">和</div>
+
+                                {% endif %}
+
+                                <span class="card-title">
+                                    {{ produto[1] }}
+                                </span>
+
+                                <p class="categoria-produto">
+                                    {{ produto[2] }}
+                                </p>
+
+                                <p class="preco-produto">
+                                    R$ {{ "%.2f"|format(produto[3]) }}
+                                </p>
+
+                            </div>
+
+                            <!-- AÇÕES -->
+                            <div class="card-action acoes-produto">
+
+                                <a href="/editar_produto/{{ produto[0] }}"
+                                   class="botao-editar">
+                                    Editar
+                                </a>
+
+                                <a href="/excluir_produto/{{ produto[0] }}"
+                                   class="botao-excluir"
+                                   onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+                                    Excluir
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="sem-produtos">Nenhum produto cadastrado.</p>
+
+        {% endif %}
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-japones">
+        <p>和 — Restaurante Japonês — 伝統と味</p>
+    </footer>
+
+</body>
+</html>

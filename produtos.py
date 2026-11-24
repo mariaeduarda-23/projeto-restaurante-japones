@@ -1,5 +1,5 @@
 from banco import conectar
-4
+
 
 def cadastrar_produto():
     print("\n--- CADASTRAR PRODUTO ---")

@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurante Japonês</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo-japones">
+
+        <div class="logo-japones">
+            <span class="simbolo">和</span>
+            <h1>Restaurante Japonês</h1>
+            <p>Uma experiência especial da culinária oriental</p>
+        </div>
+
+        <!-- NAVBAR MATERIALIZE -->
+        <nav class="nav-japones">
+            <div class="nav-wrapper container">
+                <ul class="center">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/clientes">Clientes</a></li>
+                    <li><a href="/produtos">Cardápio</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <main class="inicio-japones container">
+
+        <!-- BANNER -->
+        <section class="banner-materialize row">
+
+            <div class="texto-banner col s12 m7">
+
+                <span class="frase-japonesa">伝統と味</span>
+
+                <h2>Uma viagem pelos sabores do Japão</h2>
+
+                <p>
+                    Descubra a combinação perfeita entre tradição,
+                    qualidade e os melhores sabores da culinária japonesa.
+                </p>
+
+                <a href="/produtos" class="btn waves-effect waves-light botao-banner">
+                    Conheça nosso cardápio
+                </a>
+
+            </div>
+
+            <div class="arte-japonesa col s12 m5">
+                <div class="sol-japones"></div>
+                <div class="circulo-decorativo"></div>
+                <span>日本</span>
+            </div>
+
+        </section>
+
+        <!-- ÁREA DE GERENCIAMENTO -->
+        <section class="area-menu">
+
+            <h2>Área de gerenciamento</h2>
+
+            <p>Escolha o que deseja acessar:</p>
+
+            <div class="row">
+
+                <!-- CARD CLIENTES -->
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">01 - Clientes</span>
+                            <p>Consulte e gerencie os clientes cadastrados.</p>
+                        </div>
+
+                        <div class="card-action">
+                            <a href="/clientes">Acessar clientes</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD PRODUTOS -->
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">02 - Produtos</span>
+                            <p>Visualize e organize os produtos do cardápio.</p>
+                        </div>
+
+                        <div class="card-action">
+                            <a href="/produtos">Acessar cardápio</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD PEDIDOS -->
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">03 - Pedidos</span>
+                            <p>Consulte e gerencie os pedidos realizados.</p>
+                        </div>
+
+                        <div class="card-action">
+                            <a href="/pedidos">Acessar pedidos</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-japones">
+        <p>和 — Restaurante Japonês — 伝統と味</p>
+    </footer>
+
+</body>
+</html>

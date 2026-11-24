@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar Produto | Restaurante Japonês</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo-japones">
+
+        <div class="logo-japones">
+            <span class="simbolo">和</span>
+            <h1>Editar Produto</h1>
+            <p>Atualize as informações do cardápio</p>
+        </div>
+
+        <!-- NAVBAR MATERIALIZE -->
+        <nav class="nav-japones">
+            <div class="nav-wrapper container">
+                <ul class="center">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/clientes">Clientes</a></li>
+                    <li><a href="/produtos">Cardápio</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!-- FORMULÁRIO -->
+    <main class="formulario-produto container">
+
+        <div class="caixa-formulario-produto">
+
+            <span class="decoracao-produto-form">日本料理</span>
+
+            <h2>Alterar Produto</h2>
+
+            <p>Modifique as informações desejadas.</p>
+
+            <form action="/editar_produto/{{ produto[0] }}" method="POST">
+
+                <!-- NOME -->
+                <div class="input-field">
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value="{{ produto[1] }}"
+                        required
+                    >
+                    <label for="nome" class="active">Nome do produto</label>
+                </div>
+
+                <!-- CATEGORIA -->
+                <div class="input-field">
+                    <input
+                        type="text"
+                        id="categoria"
+                        name="categoria"
+                        value="{{ produto[2] }}"
+                        required
+                    >
+                    <label for="categoria" class="active">Categoria</label>
+                </div>
+
+                <!-- PREÇO -->
+                <div class="input-field">
+                    <input
+                        type="number"
+                        id="preco"
+                        name="preco"
+                        step="0.01"
+                        min="0.01"
+                        value="{{ produto[3] }}"
+                        required
+                    >
+                    <label for="preco" class="active">Preço (R$)</label>
+                </div>
+
+                <!-- BOTÃO -->
+                <button type="submit" class="btn waves-effect waves-light botao-formulario">
+                    Salvar alterações
+                </button>
+
+            </form>
+
+            <a href="/produtos" class="voltar-produtos">
+                Voltar ao cardápio
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-japones">
+        <p>和 — Restaurante Japonês — 伝統と味</p>
+    </footer>
+
+</body>
+</html>

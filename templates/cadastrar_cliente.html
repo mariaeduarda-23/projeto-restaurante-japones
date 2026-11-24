@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastrar Cliente | Restaurante Japonês</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="topo-japones">
+
+        <div class="logo-japones">
+            <span class="simbolo">和</span>
+            <h1>Cadastro de Cliente</h1>
+            <p>Faça parte da nossa experiência japonesa</p>
+        </div>
+
+        <!-- NAVBAR MATERIALIZE -->
+        <nav class="nav-japones">
+            <div class="nav-wrapper container">
+                <ul class="center">
+                    <li><a href="/">Início</a></li>
+                    <li><a href="/clientes">Clientes</a></li>
+                    <li><a href="/produtos">Cardápio</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+
+    <!-- FORMULÁRIO -->
+    <main class="formulario-cliente container">
+
+        <div class="caixa-formulario-cliente">
+
+            <span class="decoracao-formulario">お客様</span>
+
+            <h2>Novo Cliente</h2>
+
+            <p>Preencha os dados abaixo para realizar o cadastro.</p>
+
+            <form action="/cadastrar_cliente" method="POST">
+
+                <!-- CAMPO NOME -->
+                <div class="input-field">
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        required
+                    >
+                    <label for="nome">Nome completo</label>
+                </div>
+
+                <!-- CAMPO TELEFONE -->
+                <div class="input-field">
+                    <input
+                        type="text"
+                        id="telefone"
+                        name="telefone"
+                        required
+                    >
+                    <label for="telefone">Telefone</label>
+                </div>
+
+                <!-- BOTÃO CADASTRAR -->
+                <button type="submit" class="btn waves-effect waves-light botao-formulario">
+                    Cadastrar cliente
+                </button>
+
+            </form>
+
+            <a href="/clientes" class="voltar-clientes">
+                Voltar para clientes
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape-japones">
+        <p>和 — Restaurante Japonês — 伝統と味</p>
+    </footer>
+
+</body>
+</html>

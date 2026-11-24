@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar Pedido | Restaurante Japonês</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="nav-japones">
+        <div class="nav-wrapper container">
+            <a href="/" class="brand-logo">和 Restaurante Japonês</a>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/">Início</a></li>
+                <li><a href="/clientes">Clientes</a></li>
+                <li><a href="/produtos">Cardápio</a></li>
+                <li><a href="/pedidos">Pedidos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container formulario-pedido">
+
+        <div class="caixa-formulario-pedido card">
+
+            <div class="card-content">
+
+                <div class="center-align">
+
+                    <span class="decoracao-pedido-form">注文</span>
+
+                    <h2>Alterar Pedido</h2>
+
+                    <p>Modifique as informações desejadas.</p>
+
+                </div>
+
+                <form action="/editar_pedido/{{ pedido[0] }}" method="POST">
+
+                    <div class="input-field">
+
+                        <select name="cliente_id" required>
+
+                            {% for cliente in clientes %}
+                                <option value="{{ cliente[0] }}"
+                                    {% if cliente[0] == pedido[1] %}selected{% endif %}>
+                                    {{ cliente[1] }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                        <label>Cliente</label>
+
+                    </div>
+
+                    <div class="input-field">
+
+                        <select name="produto_id" required>
+
+                            {% for produto in produtos %}
+                                <option value="{{ produto[0] }}"
+                                    {% if produto[0] == pedido[2] %}selected{% endif %}>
+                                    {{ produto[1] }} - R$ {{ "%.2f"|format(produto[3]) }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                        <label>Produto</label>
+
+                    </div>
+
+                    <div class="input-field">
+
+                        <input
+                            type="number"
+                            name="quantidade"
+                            id="quantidade"
+                            min="1"
+                            value="{{ pedido[3] }}"
+                            required
+                        >
+
+                        <label for="quantidade" class="active">Quantidade</label>
+
+                    </div>
+
+                    <div class="center-align">
+
+                        <button type="submit" class="btn waves-effect waves-light botao-formulario">
+                            Salvar alterações
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <div class="center-align" style="margin-top: 20px;">
+
+                    <a href="/pedidos" class="voltar-pedidos">
+                        Voltar para pedidos
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="rodape-japones center-align">
+        <p>和 — Restaurante Japonês — 伝統と味</p>
+    </footer>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elementos = document.querySelectorAll('select');
+            M.FormSelect.init(elementos);
+        });
+    </script>
+
+</body>
+</html>

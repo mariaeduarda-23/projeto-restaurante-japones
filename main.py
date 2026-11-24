@@ -1,3 +1,4 @@
+
 from banco import criar_tabelas, cadastrar_cardapio
 
 from cliente import (
@@ -20,6 +21,8 @@ from pedidos import (
     listar_pedidos
 )
 
+from faker_dados import cadastrar_clientes_faker
+
 
 # Cria as tabelas do banco
 criar_tabelas()
@@ -31,7 +34,7 @@ cadastrar_cardapio()
 while True:
 
     print("\n================================")
-    print("       RESTAURANTE JAPÔNES ")
+    print("       RESTAURANTE JAPONÊS")
     print("================================")
     print("1 - Cadastrar cliente")
     print("2 - Listar clientes")
@@ -46,6 +49,8 @@ while True:
     print("--------------------------------")
     print("10 - Criar pedido")
     print("11 - Listar pedidos")
+    print("--------------------------------")
+    print("12 - Gerar clientes com Faker")
     print("0 - Sair")
     print("================================")
 
@@ -84,9 +89,12 @@ while True:
     elif opcao == "11":
         listar_pedidos()
 
+    elif opcao == "12":
+        cadastrar_clientes_faker()
+
     elif opcao == "0":
         print("\nObrigado por comprar com a gente!")
         break
 
-    else:  
+    else:
         print("\nOpção inválida!")
