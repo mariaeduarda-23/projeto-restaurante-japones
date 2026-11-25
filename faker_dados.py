@@ -18,12 +18,13 @@ def cadastrar_clientes_faker():
         cursor.execute(
             """
             INSERT INTO clientes (nome, telefone)
-            VALUES (?, ?)
+            VALUES (%s, %s)
             """,
             (nome, telefone)
         )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("5 clientes fictícios cadastrados com sucesso!")

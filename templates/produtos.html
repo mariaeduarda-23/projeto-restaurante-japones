@@ -8,16 +8,12 @@
 
     <title>Cardápio | Restaurante Japonês</title>
 
-    <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-    <!-- CSS personalizado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <!-- CABEÇALHO -->
     <header class="topo-japones">
 
         <div class="logo-japones">
@@ -26,7 +22,6 @@
             <p>Sabores e tradições do Japão</p>
         </div>
 
-        <!-- NAVBAR MATERIALIZE -->
         <nav class="nav-japones">
             <div class="nav-wrapper container">
                 <ul class="center">
@@ -41,14 +36,13 @@
 
     <main class="pagina-cardapio container">
 
-        <!-- TÍTULO -->
         <section class="titulo-cardapio">
 
             <span>日本料理</span>
 
-            <h2>Conheça nossos pratos</h2>
+            <h2>Produtos cadastrados</h2>
 
-            <p>Uma seleção especial da culinária japonesa.</p>
+            <p>Consulte e gerencie os produtos do restaurante.</p>
 
             <a href="/cadastrar_produto" class="btn waves-effect waves-light botao-cadastrar">
                 + Cadastrar produto
@@ -58,110 +52,137 @@
 
         {% if produtos %}
 
-            <!-- GRID MATERIALIZE -->
-            <div class="lista-produtos-materialize row">
+            <!-- CAMPO DE PESQUISA -->
+            <div class="campo-pesquisa-produtos">
 
-                {% for produto in produtos %}
+                <label for="filtroProdutos">Pesquisar produtos</label>
 
-                    <div class="col s12 m6 l4">
+                <input
+                    type="text"
+                    id="filtroProdutos"
+                    placeholder="Digite o nome ou categoria do produto..."
+                >
 
-                        <!-- CARD DO PRODUTO -->
-                        <div class="card produto-card">
+            </div>
 
-                            <div class="card-content">
+            <!-- TABELA DE PRODUTOS -->
+            <div class="card-panel tabela-produtos">
 
-                                <span class="produto-id">
-                                    PRODUTO Nº {{ produto[0] }}
-                                </span>
+                <div style="width: 100%; overflow-x: auto;">
 
-                                <!-- IMAGENS DOS PRODUTOS -->
+                    <table class="highlight centered">
 
-                                {% if produto[1] == "Sushi de Salmão" %}
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagem</th>
+                                <th>Produto</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
 
-                                    <img src="{{ url_for('static', filename='img/sushi_salmao.png') }}"
-                                         alt="Sushi de Salmão" class="imagem-produto">
+                        <tbody id="tabelaProdutos">
 
-                                {% elif produto[1] == "Sushi de Atum" %}
+                            {% for produto in produtos %}
 
-                                    <img src="{{ url_for('static', filename='img/sushi_atum.png') }}"
-                                         alt="Sushi de Atum" class="imagem-produto">
+                                <tr>
 
-                                {% elif produto[1] == "Temaki de Salmão" %}
+                                    <td>{{ produto[0] }}</td>
 
-                                    <img src="{{ url_for('static', filename='img/temaki_salmao.png') }}"
-                                         alt="Temaki de Salmão" class="imagem-produto">
+                                    <!-- IMAGENS DOS PRODUTOS -->
+                                    <td>
 
-                                {% elif produto[1] == "Temaki de Atum" %}
+                                        {% if produto[1] == "Sushi de Salmão" %}
 
-                                    <img src="{{ url_for('static', filename='img/temaki_atum.png') }}"
-                                         alt="Temaki de Atum" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/sushi_salmao.png') }}"
+                                                 alt="Sushi de Salmão" class="imagem-tabela">
 
-                                {% elif produto[1] == "Yakisoba" %}
+                                        {% elif produto[1] == "Sushi de Atum" %}
 
-                                    <img src="{{ url_for('static', filename='img/yakisoba.png') }}"
-                                         alt="Yakisoba" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/sushi_atum.png') }}"
+                                                 alt="Sushi de Atum" class="imagem-tabela">
 
-                                {% elif produto[1] == "Guioza" %}
+                                        {% elif produto[1] == "Temaki de Salmão" %}
 
-                                    <img src="{{ url_for('static', filename='img/guioza.png') }}"
-                                         alt="Guioza" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/temaki_salmao.png') }}"
+                                                 alt="Temaki de Salmão" class="imagem-tabela">
 
-                                {% elif produto[1] == "Sushi Doce" %}
+                                        {% elif produto[1] == "Temaki de Atum" %}
 
-                                    <img src="{{ url_for('static', filename='img/sushi_doce.png') }}"
-                                         alt="Sushi Doce" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/temaki_atum.png') }}"
+                                                 alt="Temaki de Atum" class="imagem-tabela">
 
-                                {% elif produto[1] == "Refrigerante" %}
+                                        {% elif produto[1] == "Yakisoba" %}
 
-                                    <img src="{{ url_for('static', filename='img/refrigerante.png') }}"
-                                         alt="Refrigerante" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/yakisoba.png') }}"
+                                                 alt="Yakisoba" class="imagem-tabela">
 
-                                {% elif produto[1] == "Água" %}
+                                        {% elif produto[1] == "Guioza" %}
 
-                                    <img src="{{ url_for('static', filename='img/agua.png') }}"
-                                         alt="Água" class="imagem-produto">
+                                            <img src="{{ url_for('static', filename='img/guioza.png') }}"
+                                                 alt="Guioza" class="imagem-tabela">
 
-                                {% else %}
+                                        {% elif produto[1] == "Sushi Doce" %}
 
-                                    <div class="produto-decoracao">和</div>
+                                            <img src="{{ url_for('static', filename='img/sushi_doce.png') }}"
+                                                 alt="Sushi Doce" class="imagem-tabela">
 
-                                {% endif %}
+                                        {% elif produto[1] == "Refrigerante" %}
 
-                                <span class="card-title">
-                                    {{ produto[1] }}
-                                </span>
+                                            <img src="{{ url_for('static', filename='img/refrigerante.png') }}"
+                                                 alt="Refrigerante" class="imagem-tabela">
 
-                                <p class="categoria-produto">
-                                    {{ produto[2] }}
-                                </p>
+                                        {% elif produto[1] == "Água" %}
 
-                                <p class="preco-produto">
-                                    R$ {{ "%.2f"|format(produto[3]) }}
-                                </p>
+                                            <img src="{{ url_for('static', filename='img/agua.png') }}"
+                                                 alt="Água" class="imagem-tabela">
 
-                            </div>
+                                        {% else %}
 
-                            <!-- AÇÕES -->
-                            <div class="card-action acoes-produto">
+                                            <div class="produto-decoracao">和</div>
 
-                                <a href="/editar_produto/{{ produto[0] }}"
-                                   class="botao-editar">
-                                    Editar
-                                </a>
+                                        {% endif %}
 
-                                <a href="/excluir_produto/{{ produto[0] }}"
-                                   class="botao-excluir"
-                                   onclick="return confirm('Tem certeza que deseja excluir este produto?')">
-                                    Excluir
-                                </a>
+                                    </td>
 
-                            </div>
+                                    <td>{{ produto[1] }}</td>
 
-                        </div>
+                                    <td>{{ produto[2] }}</td>
 
-                    </div>
+                                    <td>
+                                        R$ {{ "%.2f"|format(produto[3]) }}
+                                    </td>
 
-                {% endfor %}
+                                    <td>
+
+                                        <a href="/editar_produto/{{ produto[0] }}"
+                                           class="btn-small waves-effect waves-light botao-editar">
+                                            Editar
+                                        </a>
+
+                                        <a href="/excluir_produto/{{ produto[0] }}"
+                                           class="btn-small waves-effect waves-light botao-excluir"
+                                           onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+                                            Excluir
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <p id="semResultadoProdutos" style="display: none; text-align: center;">
+                    Nenhum produto encontrado.
+                </p>
 
             </div>
 
@@ -173,10 +194,45 @@
 
     </main>
 
-    <!-- RODAPÉ -->
     <footer class="rodape-japones">
         <p>和 — Restaurante Japonês — 伝統と味</p>
     </footer>
+
+    <!-- FILTRO DA TABELA -->
+    <script>
+
+        const filtroProdutos = document.getElementById('filtroProdutos');
+
+        if (filtroProdutos) {
+
+            filtroProdutos.addEventListener('input', function() {
+
+                const pesquisa = this.value.toLowerCase();
+                const linhas = document.querySelectorAll('#tabelaProdutos tr');
+
+                let encontrados = 0;
+
+                linhas.forEach(function(linha) {
+
+                    const texto = linha.textContent.toLowerCase();
+
+                    if (texto.includes(pesquisa)) {
+                        linha.style.display = '';
+                        encontrados++;
+                    } else {
+                        linha.style.display = 'none';
+                    }
+
+                });
+
+                document.getElementById('semResultadoProdutos').style.display =
+                    encontrados === 0 ? 'block' : 'none';
+
+            });
+
+        }
+
+    </script>
 
 </body>
 </html>

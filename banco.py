@@ -1,7 +1,18 @@
-import sqlite3
+
+import os
+import psycopg2
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def conectar():
-    return sqlite3.connect("restaurante.db")
+    url = os.getenv("DATABASE_URL")
+
+    if not url:
+        raise ValueError("A conexão DATABASE_URL não foi encontrada no arquivo .env")
+
+    return psycopg2.connect(url, connect_timeout=30)
 
 
 def criar_tabelas():
@@ -10,7 +21,7 @@ def criar_tabelas():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS clientes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             nome TEXT NOT NULL,
             telefone TEXT NOT NULL
         )
@@ -18,16 +29,16 @@ def criar_tabelas():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS produtos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             nome TEXT NOT NULL,
             categoria TEXT NOT NULL,
-            preco REAL NOT NULL
+            preco NUMERIC(10, 2) NOT NULL
         )
     """)
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS pedidos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             cliente_id INTEGER NOT NULL,
             produto_id INTEGER NOT NULL,
             quantidade INTEGER NOT NULL,
@@ -37,6 +48,7 @@ def criar_tabelas():
     """)
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
 
@@ -59,9 +71,9 @@ def cadastrar_cardapio():
     for produto in produtos:
         cursor.execute("""
             INSERT INTO produtos (nome, categoria, preco)
-            SELECT ?, ?, ?
+            SELECT %s, %s, %s
             WHERE NOT EXISTS (
-                SELECT 1 FROM produtos WHERE nome = ?
+                SELECT 1 FROM produtos WHERE nome = %s
             )
         """, (
             produto[0],
@@ -71,4 +83,5 @@ def cadastrar_cardapio():
         ))
 
     conexao.commit()
+    cursor.close()
     conexao.close()

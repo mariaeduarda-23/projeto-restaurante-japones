@@ -1,3 +1,4 @@
+
 from banco import conectar
 
 
@@ -8,7 +9,6 @@ def cadastrar_produto():
     categoria = input("Categoria: ")
     preco = float(input("Preço: R$ "))
 
-    # Dicionário com os dados do produto
     produto = {
         "nome": nome,
         "categoria": categoria,
@@ -21,7 +21,7 @@ def cadastrar_produto():
     cursor.execute(
         """
         INSERT INTO produtos (nome, categoria, preco)
-        VALUES (?, ?, ?)
+        VALUES (%s, %s, %s)
         """,
         (
             produto["nome"],
@@ -31,6 +31,7 @@ def cadastrar_produto():
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Produto cadastrado com sucesso!")
@@ -46,6 +47,7 @@ def listar_produtos():
 
     produtos = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     if len(produtos) == 0:
@@ -68,12 +70,13 @@ def buscar_produto():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "SELECT * FROM produtos WHERE nome LIKE ?",
+        "SELECT * FROM produtos WHERE nome ILIKE %s",
         ("%" + nome + "%",)
     )
 
     produtos = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     if len(produtos) == 0:
@@ -96,11 +99,12 @@ def atualizar_preco():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "UPDATE produtos SET preco = ? WHERE id = ?",
+        "UPDATE produtos SET preco = %s WHERE id = %s",
         (novo_preco, id_produto)
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Preço atualizado com sucesso!")
@@ -115,11 +119,12 @@ def excluir_produto():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "DELETE FROM produtos WHERE id = ?",
+        "DELETE FROM produtos WHERE id = %s",
         (id_produto,)
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Produto excluído com sucesso!")

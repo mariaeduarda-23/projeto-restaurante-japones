@@ -1,3 +1,4 @@
+
 from banco import conectar
 
 
@@ -8,6 +9,10 @@ def criar_pedido():
     produto_id = int(input("ID do produto: "))
     quantidade = int(input("Quantidade: "))
 
+    if quantidade <= 0:
+        print("Quantidade inválida!")
+        return
+
     conexao = conectar()
     cursor = conexao.cursor()
 
@@ -15,12 +20,13 @@ def criar_pedido():
         """
         INSERT INTO pedidos
         (cliente_id, produto_id, quantidade)
-        VALUES (?, ?, ?)
+        VALUES (%s, %s, %s)
         """,
         (cliente_id, produto_id, quantidade)
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Pedido criado com sucesso!")
@@ -48,6 +54,7 @@ def listar_pedidos():
 
     pedidos = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     if len(pedidos) == 0:

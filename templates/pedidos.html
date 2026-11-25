@@ -45,70 +45,84 @@
 
         {% if pedidos %}
 
-            <div class="row lista-pedidos">
+            <!-- CAMPO DE PESQUISA -->
+            <div class="campo-pesquisa-pedidos">
 
-                {% for pedido in pedidos %}
+                <label for="filtroPedidos">Pesquisar pedidos</label>
 
-                    <div class="col s12 m6 l4">
+                <input
+                    type="text"
+                    id="filtroPedidos"
+                    placeholder="Digite o número, cliente ou produto..."
+                >
 
-                        <div class="card pedido-card">
+            </div>
 
-                            <div class="card-content">
+            <!-- TABELA DE PEDIDOS -->
+            <div class="card-panel tabela-pedidos">
 
-                                <span class="pedido-id">
-                                    PEDIDO Nº {{ pedido[0] }}
-                                </span>
+                <div style="width: 100%; overflow-x: auto;">
 
-                                <div class="pedido-decoracao center-align">
-                                    和
-                                </div>
+                    <table class="highlight centered">
 
-                                <span class="card-title">
-                                    {{ pedido[1] }}
-                                </span>
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço unitário</th>
+                                <th>Total</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
 
-                                <p class="pedido-produto">
-                                    Produto: {{ pedido[2] }}
-                                </p>
+                        <tbody id="tabelaPedidos">
 
-                                <p class="pedido-detalhe">
-                                    Quantidade: {{ pedido[3] }}
-                                </p>
+                            {% for pedido in pedidos %}
 
-                                <p class="pedido-detalhe">
-                                    Preço unitário: R$ {{ "%.2f"|format(pedido[4]) }}
-                                </p>
+                                <tr>
+                                    <td>{{ pedido[0] }}</td>
 
-                                <div class="pedido-total">
-                                    <span>Total do pedido</span>
+                                    <td>{{ pedido[1] }}</td>
 
-                                    <strong>
+                                    <td>{{ pedido[2] }}</td>
+
+                                    <td>{{ pedido[3] }}</td>
+
+                                    <td>
+                                        R$ {{ "%.2f"|format(pedido[4]) }}
+                                    </td>
+
+                                    <td>
                                         R$ {{ "%.2f"|format(pedido[3] * pedido[4]) }}
-                                    </strong>
-                                </div>
+                                    </td>
 
-                            </div>
+                                    <td>
+                                        <a href="/editar_pedido/{{ pedido[0] }}"
+                                           class="btn-small waves-effect waves-light botao-editar-pedido">
+                                            Editar
+                                        </a>
 
-                            <div class="card-action acoes-pedido">
+                                        <a href="/excluir_pedido/{{ pedido[0] }}"
+                                           class="btn-small waves-effect waves-light botao-excluir-pedido"
+                                           onclick="return confirm('Tem certeza que deseja excluir este pedido?')">
+                                            Excluir
+                                        </a>
+                                    </td>
+                                </tr>
 
-                                <a href="/editar_pedido/{{ pedido[0] }}"
-                                   class="botao-editar-pedido">
-                                    Editar
-                                </a>
+                            {% endfor %}
 
-                                <a href="/excluir_pedido/{{ pedido[0] }}"
-                                   class="botao-excluir-pedido"
-                                   onclick="return confirm('Tem certeza que deseja excluir este pedido?')">
-                                    Excluir
-                                </a>
+                        </tbody>
 
-                            </div>
+                    </table>
 
-                        </div>
+                </div>
 
-                    </div>
-
-                {% endfor %}
+                <p id="semResultadoPedidos" style="display: none; text-align: center;">
+                    Nenhum pedido encontrado.
+                </p>
 
             </div>
 
@@ -125,6 +139,49 @@
     <footer class="rodape-japones center-align">
         <p>和 — Restaurante Japonês — 伝統と味</p>
     </footer>
+
+    <!-- FILTRO DA TABELA -->
+
+<script>
+    const filtroPedidos = document.getElementById('filtroPedidos');
+
+    if (filtroPedidos) {
+
+        filtroPedidos.addEventListener('input', function() {
+
+            const pesquisa = this.value.trim().toLowerCase();
+            const linhas = document.querySelectorAll('#tabelaPedidos tr');
+
+            let encontrados = 0;
+
+            linhas.forEach(function(linha) {
+
+                const numeroPedido = linha.cells[0].textContent.trim().toLowerCase();
+                const cliente = linha.cells[1].textContent.trim().toLowerCase();
+                const produto = linha.cells[2].textContent.trim().toLowerCase();
+
+                const corresponde =
+                    numeroPedido.includes(pesquisa) ||
+                    cliente.includes(pesquisa) ||
+                    produto.includes(pesquisa);
+
+                if (corresponde) {
+                    linha.style.display = '';
+                    encontrados++;
+                } else {
+                    linha.style.display = 'none';
+                }
+
+            });
+
+            document.getElementById('semResultadoPedidos').style.display =
+                encontrados === 0 ? 'block' : 'none';
+
+        });
+
+    }
+</script>
+
 
 </body>
 </html>

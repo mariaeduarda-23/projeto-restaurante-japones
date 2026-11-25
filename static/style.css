@@ -1259,3 +1259,265 @@
     background-color: #d5a454 !important;
     color: #ffffff !important;
 }
+
+
+/* TABELA DE CLIENTES - AJUSTE COMPLETO */
+
+.pagina-clientes .tabela-clientes {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    overflow-x: auto;
+    background: #fffaf6;
+    border: 1px solid #d5a454;
+    border-radius: 12px;
+}
+
+.pagina-clientes .tabela-clientes table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.pagina-clientes .tabela-clientes thead {
+    background: #a4701f;
+}
+
+.pagina-clientes .tabela-clientes thead tr {
+    height: 55px !important;
+    background: #a4701f;
+}
+
+.pagina-clientes .tabela-clientes th {
+    position: static !important;
+    display: table-cell !important;
+    height: 55px !important;
+    padding: 15px !important;
+    color: white !important;
+    font-size: 15px !important;
+    line-height: normal !important;
+    white-space: nowrap;
+    vertical-align: middle !important;
+}
+
+.pagina-clientes .tabela-clientes tbody tr {
+    display: table-row !important;
+    height: auto !important;
+}
+
+.pagina-clientes .tabela-clientes td {
+    display: table-cell !important;
+    position: static !important;
+    padding: 15px !important;
+    height: auto !important;
+    color: #4b3825 !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+    white-space: nowrap;
+    vertical-align: middle !important;
+}
+
+.pagina-clientes .tabela-clientes .btn-small {
+    margin: 3px;
+}
+
+
+/* CAMPO DE PESQUISA DE CLIENTES */
+
+.pagina-clientes .campo-pesquisa-clientes {
+    display: block;
+    width: 100%;
+    margin: 30px 0;
+    padding: 0;
+}
+
+.pagina-clientes .campo-pesquisa-clientes label {
+    display: block;
+    position: static !important;
+    transform: none !important;
+    color: #a4701f !important;
+    font-size: 15px !important;
+    margin-bottom: 10px;
+}
+
+.pagina-clientes .campo-pesquisa-clientes input {
+    display: block;
+    width: 100% !important;
+    height: 45px !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d5a454 !important;
+    border-radius: 8px !important;
+    background: #fffaf6 !important;
+    box-shadow: none !important;
+}
+
+.pagina-clientes .campo-pesquisa-clientes input:focus {
+    border: 2px solid #a4701f !important;
+    box-shadow: none !important;
+}
+
+
+/* TABELA DE PRODUTOS */
+
+.tabela-produtos {
+    width: 100%;
+    padding: 20px;
+    background-color: #fffaf6;
+    border: 1px solid #d5a454;
+    border-radius: 12px;
+}
+
+.tabela-produtos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-produtos thead {
+    background-color: #a4701f;
+}
+
+.tabela-produtos th {
+    color: white !important;
+    padding: 15px !important;
+    white-space: nowrap;
+    position: static !important;
+}
+
+.tabela-produtos td {
+    color: #4b3825 !important;
+    padding: 15px !important;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.tabela-produtos .botao-editar {
+    background-color: #a4701f !important;
+    color: white !important;
+}
+
+.tabela-produtos .botao-excluir {
+    background-color: #8b3d32 !important;
+    color: white !important;
+}
+
+/* PESQUISA DE PRODUTOS */
+
+.pagina-cardapio .campo-pesquisa-produtos {
+    width: 100%;
+    margin: 30px 0;
+}
+
+.pagina-cardapio .campo-pesquisa-produtos label {
+    display: block;
+    position: static !important;
+    transform: none !important;
+    color: #a4701f !important;
+    font-size: 15px !important;
+    margin-bottom: 10px;
+}
+
+.pagina-cardapio .campo-pesquisa-produtos input {
+    display: block;
+    width: 100% !important;
+    height: 45px !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d5a454 !important;
+    border-radius: 8px !important;
+    background: #fffaf6 !important;
+    box-shadow: none !important;
+}
+
+.pagina-cardapio .campo-pesquisa-produtos input:focus {
+    border: 2px solid #a4701f !important;
+    box-shadow: none !important;
+}
+
+
+/* TABELA DE PEDIDOS */
+
+.tabela-pedidos {
+    width: 100%;
+    padding: 20px;
+    background-color: #fffaf6;
+    border: 1px solid #d5a454;
+    border-radius: 12px;
+}
+
+.tabela-pedidos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela-pedidos thead {
+    background-color: #a4701f;
+}
+
+.tabela-pedidos th {
+    color: white !important;
+    padding: 15px !important;
+    white-space: nowrap;
+    position: static !important;
+}
+
+.tabela-pedidos td {
+    color: #4b3825 !important;
+    padding: 15px !important;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.tabela-pedidos .botao-editar-pedido {
+    background-color: #a4701f !important;
+    color: white !important;
+}
+
+.tabela-pedidos .botao-excluir-pedido {
+    background-color: #8b3d32 !important;
+    color: white !important;
+}
+
+/* PESQUISA DE PEDIDOS */
+
+.pagina-pedidos .campo-pesquisa-pedidos {
+    display: block;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.pagina-pedidos .campo-pesquisa-pedidos label {
+    display: block;
+    position: static !important;
+    transform: none !important;
+    color: #a4701f !important;
+    font-size: 15px !important;
+    margin-bottom: 10px;
+}
+
+.pagina-pedidos .campo-pesquisa-pedidos input {
+    display: block;
+    width: 100% !important;
+    height: 45px !important;
+    padding: 0 12px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d5a454 !important;
+    border-radius: 8px !important;
+    background: #fffaf6 !important;
+    box-shadow: none !important;
+}
+
+.pagina-pedidos .campo-pesquisa-pedidos input:focus {
+    border: 2px solid #a4701f !important;
+    box-shadow: none !important;
+}
+
+/* IMAGENS NA TABELA DO CARDÁPIO */
+
+.imagem-tabela {
+    width: 85px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #d5a454;
+}

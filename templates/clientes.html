@@ -17,7 +17,6 @@
 
 <body>
 
-    <!-- CABEÇALHO -->
     <header class="topo-japones">
 
         <div class="logo-japones">
@@ -26,7 +25,6 @@
             <p>Conheça nossos clientes cadastrados</p>
         </div>
 
-        <!-- NAVBAR MATERIALIZE -->
         <nav class="nav-japones">
             <div class="nav-wrapper container">
                 <ul class="center">
@@ -41,7 +39,6 @@
 
     <main class="pagina-clientes container">
 
-        <!-- TÍTULO -->
         <section class="titulo-clientes">
 
             <span>お客様</span>
@@ -59,56 +56,66 @@
 
         {% if clientes %}
 
-            <!-- GRID MATERIALIZE -->
-            <div class="lista-clientes row">
+            <!-- CAMPO DE PESQUISA -->
+           <div class="campo-pesquisa-clientes">
+    <label for="filtroClientes">Pesquisar clientes</label>
+    <input
+        type="text"
+        id="filtroClientes"
+        placeholder="Digite o nome ou telefone do cliente..."
+    >
+</div>
 
-                {% for cliente in clientes %}
+            <!-- TABELA DE CLIENTES -->
+            <div class="card-panel tabela-clientes">
 
-                    <div class="col s12 m6 l4">
+                <div style="width: 100%; overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
 
-                        <!-- CARD MATERIALIZE -->
-                        <div class="card cliente-card">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
 
-                            <div class="card-content">
+                        <tbody id="tabelaClientes">
 
-                                <span class="cliente-id">
-                                    CLIENTE Nº {{ cliente[0] }}
-                                </span>
+                            {% for cliente in clientes %}
 
-                                <div class="cliente-decoracao">
-                                    和
-                                </div>
+                                <tr>
+                                    <td>{{ cliente[0] }}</td>
 
-                                <span class="card-title">
-                                    {{ cliente[1] }}
-                                </span>
+                                    <td>{{ cliente[1] }}</td>
 
-                                <p class="cliente-detalhe">
-                                    Telefone: {{ cliente[2] }}
-                                </p>
+                                    <td>{{ cliente[2] }}</td>
 
-                            </div>
+                                    <td>
+                                        <a href="/editar_cliente/{{ cliente[0] }}"
+                                           class="btn-small waves-effect waves-light botao-editar-cliente">
+                                            Editar
+                                        </a>
 
-                            <div class="card-action acoes-cliente">
+                                        <a href="/excluir_cliente/{{ cliente[0] }}"
+                                           class="btn-small waves-effect waves-light botao-excluir-cliente"
+                                           onclick="return confirm('Tem certeza que deseja excluir este cliente?')">
+                                            Excluir
+                                        </a>
+                                    </td>
+                                </tr>
 
-                                <a href="/editar_cliente/{{ cliente[0] }}"
-                                   class="botao-editar-cliente">
-                                    Editar
-                                </a>
+                            {% endfor %}
 
-                                <a href="/excluir_cliente/{{ cliente[0] }}"
-                                   class="botao-excluir-cliente"
-                                   onclick="return confirm('Tem certeza que deseja excluir este cliente?')">
-                                    Excluir
-                                </a>
+                        </tbody>
 
-                            </div>
+                    </table>
+                </div>
 
-                        </div>
-
-                    </div>
-
-                {% endfor %}
+                <p id="semResultadoClientes" style="display: none; text-align: center;">
+                    Nenhum cliente encontrado.
+                </p>
 
             </div>
 
@@ -124,10 +131,40 @@
 
     </main>
 
-    <!-- RODAPÉ -->
     <footer class="rodape-japones">
         <p>和 — Restaurante Japonês — 伝統と味</p>
     </footer>
+
+    <!-- FILTRO DA TABELA -->
+    <script>
+        const filtro = document.getElementById('filtroClientes');
+
+        if (filtro) {
+            filtro.addEventListener('input', function() {
+
+                const pesquisa = this.value.toLowerCase();
+                const linhas = document.querySelectorAll('#tabelaClientes tr');
+                let encontrados = 0;
+
+                linhas.forEach(function(linha) {
+
+                    const texto = linha.textContent.toLowerCase();
+
+                    if (texto.includes(pesquisa)) {
+                        linha.style.display = '';
+                        encontrados++;
+                    } else {
+                        linha.style.display = 'none';
+                    }
+
+                });
+
+                document.getElementById('semResultadoClientes').style.display =
+                    encontrados === 0 ? 'block' : 'none';
+
+            });
+        }
+    </script>
 
 </body>
 </html>

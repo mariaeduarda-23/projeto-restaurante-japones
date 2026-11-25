@@ -1,8 +1,9 @@
 
 from flask import Flask, render_template, request, redirect
-from banco import conectar
+from banco import conectar, criar_tabelas, cadastrar_cardapio
 
 app = Flask(__name__)
+
 
 
 @app.route("/")
@@ -36,7 +37,7 @@ def cadastrar_cliente():
         cursor = conexao.cursor()
 
         cursor.execute(
-            "INSERT INTO clientes (nome, telefone) VALUES (?, ?)",
+            "INSERT INTO clientes (nome, telefone) VALUES (%s, %s)",
             (nome, telefone)
         )
 
@@ -58,7 +59,7 @@ def editar_cliente(id):
         telefone = request.form["telefone"]
 
         cursor.execute(
-            "UPDATE clientes SET nome = ?, telefone = ? WHERE id = ?",
+            "UPDATE clientes SET nome = %s, telefone = %s WHERE id = %s",
             (nome, telefone, id)
         )
 
@@ -67,7 +68,7 @@ def editar_cliente(id):
 
         return redirect("/clientes")
 
-    cursor.execute("SELECT * FROM clientes WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM clientes WHERE id = %s", (id,))
     cliente = cursor.fetchone()
 
     conexao.close()
@@ -80,7 +81,7 @@ def excluir_cliente_web(id):
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute("DELETE FROM clientes WHERE id = ?", (id,))
+    cursor.execute("DELETE FROM clientes WHERE id = %s", (id,))
 
     conexao.commit()
     conexao.close()
@@ -117,7 +118,7 @@ def cadastrar_produto():
         cursor.execute(
             """
             INSERT INTO produtos (nome, categoria, preco)
-            VALUES (?, ?, ?)
+            VALUES (%s, %s, %s)
             """,
             (nome, categoria, preco)
         )
@@ -143,8 +144,8 @@ def editar_produto(id):
         cursor.execute(
             """
             UPDATE produtos
-            SET nome = ?, categoria = ?, preco = ?
-            WHERE id = ?
+            SET nome = %s, categoria = %s, preco = %s
+            WHERE id = %s
             """,
             (nome, categoria, preco, id)
         )
@@ -154,7 +155,7 @@ def editar_produto(id):
 
         return redirect("/produtos")
 
-    cursor.execute("SELECT * FROM produtos WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM produtos WHERE id = %s", (id,))
     produto = cursor.fetchone()
 
     conexao.close()
@@ -167,7 +168,7 @@ def excluir_produto_web(id):
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute("DELETE FROM produtos WHERE id = ?", (id,))
+    cursor.execute("DELETE FROM produtos WHERE id = %s", (id,))
 
     conexao.commit()
     conexao.close()
@@ -220,7 +221,7 @@ def cadastrar_pedido():
         cursor.execute(
             """
             INSERT INTO pedidos (cliente_id, produto_id, quantidade)
-            VALUES (?, ?, ?)
+            VALUES (%s, %s, %s)
             """,
             (cliente_id, produto_id, quantidade)
         )
@@ -262,8 +263,8 @@ def editar_pedido(id):
         cursor.execute(
             """
             UPDATE pedidos
-            SET cliente_id = ?, produto_id = ?, quantidade = ?
-            WHERE id = ?
+            SET cliente_id = %s, produto_id = %s, quantidade = %s
+            WHERE id = %s
             """,
             (cliente_id, produto_id, quantidade, id)
         )
@@ -273,7 +274,7 @@ def editar_pedido(id):
 
         return redirect("/pedidos")
 
-    cursor.execute("SELECT * FROM pedidos WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM pedidos WHERE id = %s", (id,))
     pedido = cursor.fetchone()
 
     cursor.execute("SELECT * FROM clientes")
@@ -297,7 +298,7 @@ def excluir_pedido_web(id):
     conexao = conectar()
     cursor = conexao.cursor()
 
-    cursor.execute("DELETE FROM pedidos WHERE id = ?", (id,))
+    cursor.execute("DELETE FROM pedidos WHERE id = %s", (id,))
 
     conexao.commit()
     conexao.close()

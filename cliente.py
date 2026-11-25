@@ -1,3 +1,4 @@
+
 from banco import conectar
 
 
@@ -7,7 +8,6 @@ def cadastrar_cliente():
     nome = input("Digite o nome: ")
     telefone = input("Digite o telefone: ")
 
-    # Dicionário com os dados do cliente
     cliente = {
         "nome": nome,
         "telefone": telefone
@@ -17,11 +17,12 @@ def cadastrar_cliente():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "INSERT INTO clientes (nome, telefone) VALUES (?, ?)",
+        "INSERT INTO clientes (nome, telefone) VALUES (%s, %s)",
         (cliente["nome"], cliente["telefone"])
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Cliente cadastrado com sucesso!")
@@ -37,6 +38,7 @@ def listar_clientes():
 
     clientes = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     if len(clientes) == 0:
@@ -58,12 +60,13 @@ def buscar_cliente():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "SELECT * FROM clientes WHERE nome LIKE ?",
+        "SELECT * FROM clientes WHERE nome ILIKE %s",
         ("%" + nome + "%",)
     )
 
     clientes = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     if len(clientes) == 0:
@@ -84,11 +87,12 @@ def excluir_cliente():
     cursor = conexao.cursor()
 
     cursor.execute(
-        "DELETE FROM clientes WHERE id = ?",
+        "DELETE FROM clientes WHERE id = %s",
         (id_cliente,)
     )
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     print("Cliente excluído com sucesso!")
